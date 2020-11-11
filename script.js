@@ -48,24 +48,27 @@ const game = {
 
             if (direction === -1) return alert('До свидания!');
 
-            if (this.player.x === 0 && direction === 4) {
-                alert('Сейчас сюда двигаться нелься!\nВыберте другое направление движения!');
-                continue;
-            }
-            else if (this.player.x === this.settings.rowCount - 1 && direction === 6) {
-                alert('Сейчас сюда двигаться нелься!\nВыберте другое направление движения!');
-                continue;
-            }
-            else if (this.player.y === this.settings.colCount - 1 && direction === 2) {
-                alert('Сейчас сюда двигаться нелься!\nВыберте другое направление движения!');
-                continue;
-            }
-            else if (this.player.y === 0 && direction === 8) {
+            if (this.limitationOfMovements(direction) === false) {
                 alert('Сейчас сюда двигаться нелься!\nВыберте другое направление движения!');
                 continue;
             }
 
             this.player.move(direction);
+        }
+    },
+
+    limitationOfMovements(direction) {
+        if (this.player.x === 0 && direction === 4) {
+            return false;
+        }
+        else if (this.player.x === this.settings.rowCount - 1 && direction === 6) {
+            return false;
+        }
+        else if (this.player.y === this.settings.colCount - 1 && direction === 2) {
+            return false;
+        }
+        else if (this.player.y === 0 && direction === 8) {
+            return false;
         }
     },
 
@@ -124,13 +127,11 @@ function decomposition() {
                 }
             }
 
-            console.log(decomposedNumber);
-            break;
+            return console.log(decomposedNumber);
         }
         else {
             alert('Ошибка ввода! Требуется ввести число цифрой от 0 до 999!');
-            console.log(decomposedNumber);
-            continue;
+            return console.log(decomposedNumber);
         }
     }
 
